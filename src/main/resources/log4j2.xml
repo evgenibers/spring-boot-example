@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+		</Console>
+		<RollingFile name="RollingFile" fileName="logs/@final.name@.log"
+					 filePattern="logs/@final.name@/$${date:yyyy-MM}/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d %p %c [%t] %m%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy/>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="ERROR">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="RollingFile"/>
+		</Root>
+		<Logger name="net.evgenibers.example" level="DEBUG" additivity="true"/>
+		<Logger name="org.springframework" level="INFO" additivity="true"/>
+		<Logger name="org.hibernate" level="INFO" additivity="true"/>
+	</Loggers>
+</Configuration>
