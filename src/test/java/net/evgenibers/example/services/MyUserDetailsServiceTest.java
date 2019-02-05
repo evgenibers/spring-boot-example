@@ -1,5 +1,8 @@
 package net.evgenibers.example.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import net.evgenibers.example.BasicTest;
+import net.evgenibers.example.integration.UserRoles;
 import net.evgenibers.example.models.User;
 import net.evgenibers.example.repositories.UserDetailsRepository;
 
@@ -38,7 +42,7 @@ public class MyUserDetailsServiceTest extends BasicTest {
 	
 	@Test
 	public void testLoadUserByUsername() {
-		userDetailsRepository.save(new User("user1", "password1", null));
+		userDetailsRepository.save(new User("user1", "password1", new ArrayList<>(Arrays.asList(UserRoles.ROLE_ADMIN))));
 		UserDetails ud = userDetailsService.loadUserByUsername("user1");
 		
 		Assert.assertEquals("ud.getUsername() = " + ud.getUsername(), "user1", ud.getUsername());
